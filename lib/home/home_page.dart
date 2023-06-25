@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_test/custom_paint/Custom_paint_page.dart';
 import 'package:my_test/draggable/draggable.dart';
+import 'package:my_test/websocket/websocket_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -23,6 +25,22 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 child: const Text("Draggable Test"),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const CustomPaintPage(),
+                  ),
+                ),
+                child: const Text("Custom Paint Test"),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const WebsocketPage(),
+                  ),
+                ),
+                child: const Text("Websocket Test"),
               ),
             ],
           ),

@@ -16,6 +16,7 @@ class DefaultLayout extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(title),
+        centerTitle: true,
       ),
       body: SafeArea(
         child: Padding(
