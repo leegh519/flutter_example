@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:my_test/home/layout.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -25,65 +26,81 @@ class _WebsocketPageState extends State<WebsocketPage> {
 
   @override
   Widget build(BuildContext context) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      scrollController.animateTo(
+        0,
+        duration: const Duration(milliseconds: 100),
+        curve: Curves.linear,
+      );
+    });
     return DefaultLayout(
       title: 'Websocket Test',
-      body: Column(
-        children: [
-          StreamBuilder(
-            stream: channel.stream,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                chatList.add(snapshot.data);
-              }
-              return Expanded(
-                child: ListView.separated(
-                  controller: scrollController,
-                  itemBuilder: (context, index) {
-                    scrollController.animateTo(
-                      scrollController.position.maxScrollExtent,
-                      duration: const Duration(milliseconds: 100),
-                      curve: Curves.linear,
-                    );
-                    return ChatBox(text: chatList[index]);
-                  },
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(
-                      height: 12,
-                    );
-                  },
-                  itemCount: chatList.length,
+      body: GestureDetector(
+        onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: Column(
+          children: [
+            StreamBuilder(
+              stream: channel.stream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  chatList.insert(0, snapshot.data);
+                }
+                if (scrollController.hasClients) {
+                  scrollController.animateTo(
+                    0,
+                    duration: const Duration(milliseconds: 100),
+                    curve: Curves.linear,
+                  );
+                }
+                return Expanded(
+                  child: ListView.separated(
+                    controller: scrollController,
+                    reverse: true,
+                    itemBuilder: (context, index) {
+                      return ChatBox(text: chatList[index]);
+                    },
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(
+                        height: 12,
+                      );
+                    },
+                    itemCount: chatList.length,
+                  ),
+                );
+              },
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: textController,
+                    onSubmitted: (value) {
+                      if (value.isNotEmpty) {
+                        channel.sink.add(value);
+                        textController.text = '';
+                      }
+                    },
+                  ),
                 ),
-              );
-            },
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: textController,
-                  onSubmitted: (value) {
-                    if (value.isNotEmpty) {
-                      channel.sink.add(value);
+                IconButton(
+                  onPressed: () {
+                    if (textController.text.isNotEmpty) {
+                      channel.sink.add(textController.text);
+
                       textController.text = '';
                     }
                   },
+                  icon: const Icon(
+                    Icons.send,
+                    color: Color.fromRGBO(80, 146, 78, 1),
+                  ),
                 ),
-              ),
-              IconButton(
-                onPressed: () {
-                  if (textController.text.isNotEmpty) {
-                    channel.sink.add(textController.text);
-                    textController.text = '';
-                  }
-                },
-                icon: const Icon(
-                  Icons.send,
-                  color: Color.fromRGBO(80, 146, 78, 1),
-                ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

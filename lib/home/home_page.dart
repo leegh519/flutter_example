@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_test/custom_paint/Custom_paint_page.dart';
+import 'package:my_test/custom_paint/custom_paint_page.dart';
 import 'package:my_test/draggable/draggable.dart';
 import 'package:my_test/websocket/websocket_page.dart';
 
