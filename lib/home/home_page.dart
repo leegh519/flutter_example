@@ -3,6 +3,7 @@ import 'package:my_test/animation/insta_check.dart';
 import 'package:my_test/animation/webtoon.dart';
 import 'package:my_test/customPaint/custom_paint_page.dart';
 import 'package:my_test/draggable/draggable.dart';
+import 'package:my_test/dropdown/dropdown.dart';
 import 'package:my_test/websocket/websocket_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -59,6 +60,14 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 child: const Text("Insta Check Interaction"),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CustomDropdown(),
+                  ),
+                ),
+                child: const Text("Custom Dropdown"),
               ),
             ],
           ),
