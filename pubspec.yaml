@@ -27,6 +27,7 @@ flutter:
 
   assets:
     - asset/image/draggable/
+    - asset/image/webtoon/
     # - images/a_dot_ham.jpeg
 
   # fonts:
