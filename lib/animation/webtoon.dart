@@ -57,6 +57,9 @@ class _WebtoonState extends State<Webtoon> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('webtoon'),
+      ),
       backgroundColor: Colors.white,
       body: GestureDetector(
         onTap: () {

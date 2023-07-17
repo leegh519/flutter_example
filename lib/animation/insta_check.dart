@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:my_test/home/layout.dart';
 
 ///
 /// https://stackoverflow.com/questions/50978603/how-to-animate-a-path-in-flutter
@@ -28,7 +29,8 @@ class _InstaCheckState extends State<InstaCheck>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return DefaultLayout(
+      title: 'insta check',
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,

@@ -71,9 +71,7 @@ class CustomDropdown extends StatelessWidget {
                 child: ListView.separated(
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
-                    return Container(
-                      child: Text('$index'),
-                    );
+                    return Text('$index');
                   },
                   separatorBuilder: (context, index) {
                     return const SizedBox(
