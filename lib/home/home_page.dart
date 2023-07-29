@@ -6,6 +6,7 @@ import 'package:my_test/animation/webtoon.dart';
 import 'package:my_test/customPaint/custom_paint_page.dart';
 import 'package:my_test/draggable/draggable.dart';
 import 'package:my_test/dropdown/custom_dropdown.dart';
+import 'package:my_test/websocket/socketio_page.dart';
 import 'package:my_test/websocket/websocket_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -46,6 +47,14 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 child: const Text("Websocket Test"),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const StompPage(),
+                  ),
+                ),
+                child: const Text("WebsocketIO Test"),
               ),
               ElevatedButton(
                 onPressed: () => Navigator.of(context).push(
